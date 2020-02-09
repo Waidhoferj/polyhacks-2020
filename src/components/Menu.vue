@@ -5,7 +5,7 @@
         <v-list-item-title>
           Hello {{ $store.state.user.displayName }}</v-list-item-title
         >
-        <v-list-item-subtitle v-if="points"
+        <v-list-item-subtitle v-if="$store.state.userData.username"
           >{{ points }} points</v-list-item-subtitle
         >
       </v-list-item-content>
@@ -49,6 +49,7 @@
 </template>
 
 <script>
+import { auth } from "@/modules/firebase";
 export default {
   props: {
     drawer: Boolean

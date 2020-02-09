@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { auth } from "@/modules/firebase";
+import { auth, firestore } from "@/modules/firebase";
 import Menu from "@/components/Menu";
 export default {
   name: "App",
@@ -51,6 +51,14 @@ export default {
     auth.onAuthStateChanged(user => {
       if (user) {
         this.$store.commit("setUser", user);
+        firestore
+          .collection("Users")
+          .doc(user.uid)
+          .get()
+          .then(ref => {
+            if (!ref.exists) return;
+            this.$store.commit("setUserData", ref.data());
+          });
       } else this.signedIn = false;
     });
   }
