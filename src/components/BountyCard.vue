@@ -28,8 +28,8 @@
     <v-card-text style="display:flex">
       <div style="flex-grow:1"></div>
       <bounty-card-dialog :config="config"></bounty-card-dialog>
-      <v-btn color="primary" @click="$router.push('data-hunt')" text
-        >Submit</v-btn
+      <v-btn color="primary" @click="$router.push('data-hunt/' + id + '/' + config.title)" text
+        >Take Photos</v-btn
       >
     </v-card-text>
   </v-card>
@@ -38,23 +38,24 @@
 <script>
 import BountyCardDialog from "../components/BountyCardDialog";
 export default {
-  components: {
-    BountyCardDialog
-  },
+   components: {
+      BountyCardDialog
+   },
 
-  props: {
-    config: {
-      title: String,
-      points: Number,
-      company: String,
-      collected: Number,
-      pricePerPhoto: Number,
-      quantity: Number,
-      timeConstraint: Number,
-      usage: String,
-      description: String
-    }
-  }
+   props: {
+      id: String,
+      config: {
+         title: String,
+         points: Number,
+         company: String,
+         collected: Number,
+         pricePerPhoto: Number,
+         quantity: Number,
+         timeConstraint: Number,
+         usage: String,
+         description: String
+      }
+   }
 };
 </script>
 

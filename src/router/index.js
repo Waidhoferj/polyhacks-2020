@@ -37,7 +37,7 @@ const routes = [
     component: () => import("../views/SignUp.vue")
   },
   {
-    path: "/data-hunt",
+    path: "/data-hunt/:id/:title",
     props: true,
     name: "Data Hunt",
     component: () => import("../views/ScavengerCamera.vue")

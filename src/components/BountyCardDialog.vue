@@ -58,7 +58,7 @@
 
     <v-list class="transparent">
        <v-list-item>
-          <v-list-item-title>Availuble until 2/14/2020</v-list-item-title>
+          <v-list-item-title>Availible until 2/14/2020</v-list-item-title>
        </v-list-item>
        <v-list-item>
           <v-list-item-title>Requested by Activata</v-list-item-title>
@@ -68,7 +68,7 @@
     <v-divider></v-divider>
 
     <v-card-actions>
-      <v-btn text>Submit Images</v-btn>
+      <v-btn text>Take Photos</v-btn>
     </v-card-actions>
   </v-card>
     </v-dialog>
@@ -78,6 +78,7 @@
 <script>
 export default {
    props: {
+      id: String,
       config: {
          title: String,
          points: Number,

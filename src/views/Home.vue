@@ -3,7 +3,8 @@
     <bounty-card
       v-for="(bounty, index) in bounties"
       :key="index"
-      :config="bounty"
+      :id="bounty.id"
+      :config="bounty.config"
     ></bounty-card>
   </div>
 </template>
@@ -28,7 +29,9 @@ export default {
       .then(response => {
         response.docs.forEach(doc => {
            console.log(doc.data());
-           this.bounties.push(doc.data())
+           this.bounties.push({
+              id: doc.id,
+              config: doc.data()})
            });
       })
       .catch(err => console.log(err));

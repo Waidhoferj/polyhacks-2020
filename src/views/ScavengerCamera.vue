@@ -1,6 +1,6 @@
 <template>
   <div class="camera">
-    <h1 class="title display-1">{{ bounty.title }}</h1>
+    <h1 class="title display-1">{{ title }}</h1>
     <canvas ref="sensor" class="camera-sensor"></canvas>
     <video
       ref="videoView"
@@ -25,13 +25,15 @@ import { auth, storage, firestore } from "@/modules/firebase";
 export default {
   data: () => ({
     bounty: {
-      title: "this is a title",
-      type: "photo",
-      id: "blah"
+      type: "photo"
     },
     photoCount: 0,
     takingPic: false
   }),
+  props: {
+    id: String,
+    title: String
+  },
   methods: {
     async setupCamera() {
       let stream;
@@ -59,7 +61,7 @@ export default {
         "https://us-central1-polyhacks-2020.cloudfunctions.net/labelAndMatchImage",
         {
           uploaderId: auth.currentUser.uid,
-          bountyId: this.bounty.id,
+          bountyId: this.id,
           imageSrc: url,
           keywords: ["Face", "bottle"]
         }
@@ -68,15 +70,20 @@ export default {
         .collection("Users")
         .doc(auth.currentUser.uid)
         .update({
-          points: firebase.firestore.FieldValue.increment(200),
-          collected: firebase.firestore.FieldValue.increment(1)
+          points: firebase.firestore.FieldValue.increment(200)
         });
       this.$store.state.userData.points += 200;
       this.takingPic = false;
+
+      firestore
+        .collection("Bounties")
+        .doc(this.id)
+        .update({
+          collected: firebase.firestore.FieldValue.increment(1)
+        });
     }
   },
   mounted() {
-    // this.bounty = this.$route.query.bounty;
     this.setupCamera();
   }
 };
