@@ -12,7 +12,7 @@
 <script>
 import axios from "axios";
 import firebase from "firebase/app";
-import { auth, storage } from "@/modules/firebase";
+import { auth, storage, firestore } from "@/modules/firebase";
 
 export default {
   data: () => ({
