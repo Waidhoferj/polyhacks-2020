@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { firestore } from "../modules/firebase";
 import BountyCard from "../components/BountyCard";
 export default {
   components: {
@@ -17,41 +18,52 @@ export default {
 
   data: () => {
     return {
-      bounties: [
-        {
-          title: "Avila Beach",
-          points: 200,
-          collected: 439,
-          company: "Cisco",
-          quantity: 500,
-          timeContraint: 1581226441791,
-          description:
-            "Take pictures of the sand at Avila Beach between the hours of 8:00 AM and 8:00 PM",
-          featured: true
-        },
-        {
-          title: "Dog pictures",
-          points: 200,
-          collected: 32,
-          company: "Activata",
-          quantity: 100,
-          timeContraint: 1581226441791,
-          description: "Collect them all",
-          featured: false
-        },
-        {
-          title: "Pictures of Fire Hydrants",
-          points: 500,
-          collected: 69,
-          company: "Knowmada",
-          quantity: 100,
-          timeContraint: 1581226441791,
-          description:
-            "Collect images of fire hydrants located around the downtown area",
-          featured: false
-        }
-      ]
+      bounties: []
+
+      // bounties: [
+      //   {
+      //     title: "Avila Beach",
+      //     points: 200,
+      //     collected: 439,
+      //     company: "Cisco",
+      //     quantity: 500,
+      //     timeContraint: 1581226441791,
+      //     description:
+      //       "Take pictures of the sand at Avila Beach between the hours of 8:00 AM and 8:00 PM",
+      //     featured: true
+      //   },
+      //   {
+      //     title: "Dog pictures",
+      //     points: 200,
+      //     collected: 32,
+      //     company: "Activata",
+      //     quantity: 100,
+      //     timeContraint: 1581226441791,
+      //     description: "Collect them all",
+      //     featured: false
+      //   },
+      //   {
+      //     title: "Pictures of Fire Hydrants",
+      //     points: 500,
+      //     collected: 69,
+      //     company: "Knowmada",
+      //     quantity: 100,
+      //     timeContraint: 1581226441791,
+      //     description:
+      //       "Collect images of fire hydrants located around the downtown area",
+      //     featured: false
+      //   }
+      // ]
     };
+  },
+  mounted() {
+    firestore.collection("Bounties").get()
+      .then(response => {
+        // this.bounties.push(self.bounties, response)
+        console.log("response");
+        response.docs.forEach(doc => this.bounties.push(doc.data()));
+      })
+      .catch(err => console.log(err));
   }
 };
 </script>
