@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-btn text icon
           dark
@@ -94,9 +90,9 @@
 </template>
 
 <script>
-
+import { auth } from "@/modules/firebase";
 export default {
-  name: 'App',
+  name: "App",
 
   data: () => ({
     drawer: false,
@@ -112,6 +108,13 @@ export default {
     ]
     //
   }),
+  created() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.$store.commit("setUser", user);
+      } else this.signedIn = false;
+    });
+  }
 };
 </script>
 
@@ -119,12 +122,5 @@ export default {
 .container {
   max-width: inherit;
   padding: 0px;
-}
-
-.registration {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
 }
 </style>
