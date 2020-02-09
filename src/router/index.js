@@ -17,11 +17,6 @@ const routes = [
     component: () => import("../views/Account.vue")
   },
   {
-    path: "/bounty-info",
-    name: "Bounty Info",
-    component: () => import("../views/BountyInfo.vue")
-  },
-  {
     path: "/create-bounty",
     name: "Create Bounty",
     component: () => import("../views/CreateBounty.vue")
@@ -42,7 +37,7 @@ const routes = [
     component: () => import("../views/SignUp.vue")
   },
   {
-    path: "/data-hunt/:bountyId",
+    path: "/data-hunt",
     props: true,
     name: "Data Hunt",
     component: () => import("../views/ScavengerCamera.vue")

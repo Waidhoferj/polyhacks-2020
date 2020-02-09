@@ -1,68 +1,70 @@
 <template>
-  <v-content>
-    <h1 class="display-2">Data Request</h1>
-    <v-text-field
-      v-model="title"
-      label="Title"
-      name="Title"
-      prepend-icon="title"
-      type="text"
-      :error-messages="titleErrors"
-      @blur="$v.title.$touch()"
-    />
-    <v-textarea
-      outlined
-      name="input-7-4"
-      label="Description"
-      v-model="description"
-      :error-messages="descriptionErrors"
-      @blur="$v.description.$touch()"
-    ></v-textarea>
-    <v-subheader>Collection Duration</v-subheader>
-    <v-row>
-      <v-date-picker
-        v-model="dates"
-        range
-        :no-title="true"
-        width="290"
-        label="Collection Duration"
-      ></v-date-picker>
-    </v-row>
+  <v-content class="create-bounty">
+    <v-container>
+      <h1 class="display-2">Data Request</h1>
+      <v-text-field
+        v-model="title"
+        label="Title"
+        name="Title"
+        prepend-icon="title"
+        type="text"
+        :error-messages="titleErrors"
+        @blur="$v.title.$touch()"
+      />
+      <v-textarea
+        outlined
+        name="input-7-4"
+        label="Description"
+        v-model="description"
+        :error-messages="descriptionErrors"
+        @blur="$v.description.$touch()"
+      ></v-textarea>
+      <v-subheader>Collection Duration</v-subheader>
+      <v-row>
+        <v-date-picker
+          v-model="dates"
+          range
+          :no-title="true"
+          width="290"
+          label="Collection Duration"
+        ></v-date-picker>
+      </v-row>
 
-    <v-text-field
-      v-model="quantity"
-      label="Quantity"
-      name="Quantity"
-      prepend-icon="trending_up"
-      type="number"
-      :error-messages="quantityErrors"
-      @blur="$v.quantity.$touch()"
-    />
-    <v-text-field
-      v-model="payment"
-      label="Payment"
-      name="payment"
-      prepend-icon="attach_money"
-      type="number"
-      :error-messages="paymentErrors"
-      @blur="$v.payment.$touch()"
-    />
-    <v-select
-      v-model="type.value"
-      :items="type.choices"
-      label="Data Type"
-      required
-      @change="$v.type.$touch()"
-    ></v-select>
-    <create-bounty-photo
-      v-if="type.value === 'photo'"
-      @update="this.categoricalData = $event"
-    ></create-bounty-photo>
-    <create-bounty-audio
-      v-else-if="type.value === 'audio'"
-      @update="this.categoricalData = $event"
-    ></create-bounty-audio>
-    <v-btn class="mr-4" @click="createBounty">submit</v-btn>
+      <v-text-field
+        v-model="quantity"
+        label="Quantity"
+        name="Quantity"
+        prepend-icon="trending_up"
+        type="number"
+        :error-messages="quantityErrors"
+        @blur="$v.quantity.$touch()"
+      />
+      <v-text-field
+        v-model="payment"
+        label="Payment"
+        name="payment"
+        prepend-icon="attach_money"
+        type="number"
+        :error-messages="paymentErrors"
+        @blur="$v.payment.$touch()"
+      />
+      <v-select
+        v-model="type.value"
+        :items="type.choices"
+        label="Data Type"
+        required
+        @change="$v.type.$touch()"
+      ></v-select>
+      <create-bounty-photo
+        v-if="type.value === 'photo'"
+        @update="this.categoricalData = $event"
+      ></create-bounty-photo>
+      <create-bounty-audio
+        v-else-if="type.value === 'audio'"
+        @update="this.categoricalData = $event"
+      ></create-bounty-audio>
+      <v-btn class="mr-4" @click="createBounty">submit</v-btn>
+    </v-container>
   </v-content>
 </template>
 
@@ -157,4 +159,7 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.create-bounty {
+}
+</style>
