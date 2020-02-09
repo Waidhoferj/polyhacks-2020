@@ -57,19 +57,19 @@
       ></v-select>
       <create-bounty-photo
         v-if="type.value === 'photo'"
-        @update="this.categoricalData = $event"
+        @update="categoricalData = $event"
       ></create-bounty-photo>
       <create-bounty-audio
         v-else-if="type.value === 'audio'"
-        @update="this.categoricalData = $event"
+        @update="categoricalData = $event"
       ></create-bounty-audio>
-      <v-btn class="mr-4" @click="createBounty">submit</v-btn>
+      <v-btn @click="createBounty" class="mr-4">submit</v-btn>
     </v-container>
   </v-content>
 </template>
 
 <script>
-import { firestore } from "@/modules/firebase";
+import { firestore, auth } from "@/modules/firebase";
 import { required } from "vuelidate/lib/validators";
 import CreateBountyPhoto from "@/components/CreateBountyPhoto";
 import CreateBountyAudio from "@/components/CreateBountyAudio";
@@ -124,17 +124,22 @@ export default {
     createBounty() {
       this.$v.$touch();
       if (this.$v.$error) return;
-      firebase.collection("Bounties").add({
-        title: "title",
-        type: this.type,
-        dateRange: this.dates,
-        requestor: auth.currentUser.uid,
-        description: this.description,
-        payment: this.payment,
-        quantity: this.quantity,
-        payment: this.payment,
-        ...this.categoricalData
-      });
+      firestore
+        .collection("Bounties")
+        .add({
+          title: this.title,
+          type: this.type.value,
+          dateRange: this.dates,
+          requestor: auth.currentUser.uid,
+          description: this.description,
+          payment: this.payment,
+          quantity: this.quantity,
+          payment: this.payment,
+          featured: false,
+          ...this.categoricalData
+        })
+        .catch(err => console.log(err.message));
+      this.$router.push("home");
     }
   },
 
@@ -159,7 +164,4 @@ export default {
 };
 </script>
 
-<style>
-.create-bounty {
-}
-</style>
+<style></style>
