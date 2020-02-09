@@ -58,6 +58,7 @@ export default {
         .update({
           points: firebase.firestore.FieldValue.increment(200)
         });
+      this.$store.state.userData.points += 200;
     }
   },
   mounted() {
