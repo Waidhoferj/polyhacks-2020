@@ -25,13 +25,22 @@
     </v-list>
     <v-divider></v-divider>
     <v-list dense>
-      <v-list-item v-for="item in account" :key="item.title" link>
+      <v-list-item>
         <v-list-item-icon>
-          <v-icon>{{ item.icon }}</v-icon>
+          <v-icon>account_circle</v-icon>
         </v-list-item-icon>
 
         <v-list-item-content>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
+          <v-list-item-title>My Account</v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-list-item @click="signOut">
+        <v-list-item-icon>
+          <v-icon>cloud_off</v-icon>
+        </v-list-item-icon>
+
+        <v-list-item-content>
+          <v-list-item-title>Sign Out</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-list>
@@ -39,6 +48,7 @@
 </template>
 
 <script>
+import { auth } from "@/modules/firebase";
 export default {
   props: {
     drawer: Boolean
@@ -48,15 +58,16 @@ export default {
       { title: "Home", icon: "home" },
       { title: "Create Bounty", icon: "create" },
       { title: "Current Bounties", icon: "today" },
-      { title: "Leaderboard", icon: "poll" },
-      { title: "Sign out", icon: "arrow_back_ios" }
-    ],
-    account: [
-      { title: "My Account", icon: "account_circle" },
-      { title: "Sign Out", icon: "cloud_off" }
+      { title: "Leaderboard", icon: "poll" }
     ]
-    //
-  })
+  }),
+  methods: {
+    async signOut() {
+      console.log("test");
+      await auth.signOut();
+      this.$router.push("/login");
+    }
+  }
 };
 </script>
 
