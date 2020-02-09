@@ -12,7 +12,7 @@
 <script>
 import axios from "axios";
 import firebase from "firebase/app";
-import { auth, storage } from "@/modules/firebase";
+import { auth, storage, firestore } from "@/modules/firebase";
 
 export default {
   data: () => ({
@@ -59,6 +59,7 @@ export default {
           points: firebase.firestore.FieldValue.increment(200),
           collected: firebase.firestore.FieldValue.increment(1)
         });
+      this.$store.state.userData.points += 200;
     }
   },
   mounted() {
