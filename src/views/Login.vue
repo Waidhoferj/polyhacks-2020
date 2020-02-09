@@ -14,7 +14,7 @@
                   v-model="email"
                   label="Email"
                   name="Email"
-                  prepend-icon="person"
+                  prepend-icon="email"
                   type="text"
                   :error-messages="emailErrors"
                   @blur="$v.email.$touch()"
