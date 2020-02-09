@@ -11,17 +11,24 @@
             <v-card-text>
               <v-form>
                 <v-text-field
+                  v-model="email"
                   label="Email"
-                  name="email"
+                  name="Email"
                   prepend-icon="person"
                   type="text"
+                  :error-messages="emailErrors"
+                  @blur="$v.email.$touch()"
                 />
+
                 <v-text-field
+                  v-model="password"
                   id="password"
                   label="Password"
                   name="password"
                   prepend-icon="lock"
                   type="password"
+                  @blur="$v.password.$touch()"
+                  :error-messages="passwordErrors"
                 />
               </v-form>
             </v-card-text>
@@ -41,6 +48,7 @@
 
 <script>
 import { auth } from "@/modules/firebase";
+import { required, minLength, email } from "vuelidate/lib/validators";
 export default {
   data() {
     return {
@@ -51,6 +59,22 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
+    },
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.email.$dirty) return errors;
+      if (!this.$v.email.email)
+        errors.push("must be a correctly formatted email");
+      if (!this.$v.email.required) errors.push("email is required.");
+      return errors;
+    },
+    passwordErrors() {
+      const errors = [];
+      if (!this.$v.password.$dirty) return errors;
+      if (!this.$v.password.minLength)
+        errors.push("password must be at least 7 characters long");
+      if (!this.$v.password.required) errors.push("password is required.");
+      return errors;
     }
   },
   watch: {
@@ -60,7 +84,23 @@ export default {
   },
   methods: {
     async signIn() {
-      await auth.signInWithEmailAndPassword();
+      this.$v.$touch();
+      if (this.$v.$error) return;
+      try {
+        await auth.signInWithEmailAndPassword(this.email, this.password);
+      } catch (err) {
+        return alert(err.message);
+      }
+    }
+  },
+  validations: {
+    email: {
+      required,
+      email
+    },
+    password: {
+      required,
+      minLength: minLength(7)
     }
   }
 };
