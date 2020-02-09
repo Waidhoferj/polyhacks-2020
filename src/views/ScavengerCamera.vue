@@ -47,6 +47,7 @@ export default {
       this.$refs.videoView.srcObject = stream;
     },
     async takePhoto() {
+      this.photoCount++;
       this.takingPic = true;
       let { sensor, output, videoView } = this.$refs;
       sensor.width = videoView.videoWidth;
@@ -103,8 +104,10 @@ export default {
 
 .photo-count {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: 110px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: white;
 }
 
 .camera,
