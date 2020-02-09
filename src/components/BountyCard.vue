@@ -6,6 +6,7 @@
   <div class="classification" style="display:flex">
       <p class="company subtitle-1" style="flex-grow: 1" color="primary">Images</p>
       <p v-if="config.featured" class="featured subtitle-1">Featured</p>
+      <p v-else class="subtitle-1 exp-date"><b>20 Hours Left</b></p>
   </div>
     <v-card-text>
       <p class="display-1 text--primary">
@@ -35,6 +36,12 @@
   <v-card-text style="display:flex">
      <p class="info-data title font-weight-bold" color="black">$.25/ea</p>
      <p class="info-data title font-weight-bold" color="black">2/9/20</p>
+  </v-card-text>
+  <v-divider></v-divider>
+  <v-card-text style="display:flex">
+     <div style="flex-grow:1"></div>
+     <v-btn color="primary" text>More Info</v-btn>
+     <v-btn color="primary" text>Submit</v-btn>
   </v-card-text>
   </v-card>
 </template>
@@ -66,6 +73,10 @@ export default {
 .classification {
    display: flex;
    padding: 12px 12px 0px 12px;
+}
+
+.exp-date {
+   color: red;
 }
 
 .info-data {

@@ -23,20 +23,25 @@
    </v-card-text>
 
     <v-list-item>
-       <v-list-item-title>Lighting</v-list-item-title>
-       <v-btn class="light-buttons" color="primary">Bright</v-btn>
-       <v-btn class="light-buttons" color="primary">Medium</v-btn>
-       <v-btn class="light-buttons" color="primary">Low</v-btn>
-
+       <p style="width:100%">Lighting</p>
     </v-list-item>
-      <p>$.25/ea</p>
-    <v-slider
-      v-model="time"
-      :max="6"
-      :tick-labels="labels"
-      class="mx-4"
-      ticks
-    ></v-slider>
+    <v-list-item>
+       <v-btn class="light-buttons" color="primary" text :value="true">Bright</v-btn>
+       <v-btn class="light-buttons" color="primary" text>Medium</v-btn>
+       <v-btn class="light-buttons" color="primary" text>Low</v-btn>
+    </v-list-item>
+
+   <v-card-text class="text--primary">
+      <p class="title no-bottom">Usage</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id massa urna. Cras gravida, mi vel sagittis posuere,
+          neque lacus iaculis orci, id viverra elit lectus a diam. Quisque varius viverra purus, sed pulvinar felis semper tincidunt. </p>
+   </v-card-text>
+
+   <v-card-text class="text--primary">
+      <p class="title no-bottom">Description</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id massa urna. Cras gravida, mi vel sagittis posuere,
+          neque lacus iaculis orci, id viverra elit lectus a diam. Quisque varius viverra purus, sed pulvinar felis semper tincidunt. </p>  
+   </v-card-text>
 
     <v-list class="transparent">
        <v-list-item>
@@ -72,6 +77,10 @@ export default {
 </script>
 
 <style scoped>
+.no-bottom {
+   margin-bottom: 0px;
+}
+
 .light-buttons {
    margin-right: 10px;
 }
