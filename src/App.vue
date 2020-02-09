@@ -123,26 +123,9 @@ export default {
 };
 </script>
 
-<<<<<<< HEAD
 <style scoped>
 .container {
   max-width: inherit;
   padding: 0px;
 }
 </style>
-=======
-<style lang="scss">
-.fade {
-  &-enter-active,
-  &-leave-active {
-    transition: opacity 1s;
-    pointer-events: 0;
-  }
-
-  &-enter,
-  &-leave-to {
-    opacity: 0;
-  }
-}
-</style>
->>>>>>> added animations
