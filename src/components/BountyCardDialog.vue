@@ -1,7 +1,21 @@
 <template>
-  <v-card
+  <div class="text-center">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          color="primary"
+          v-on="on"
+          text
+        >
+          More Info
+        </v-btn>
+      </template>
+
+      <v-card
     class="mx-auto"
-    max-width="400"
   >
     <v-list-item two-line>
       <v-list-item-content>
@@ -13,12 +27,12 @@
     </v-list-item>
    <v-card-text>
       <div class="text--primary">
-         {{collected/quantity}} Images collected
+         20/500 Images collected
       </div>
       <v-progress-linear
          color="light-blue"
          height="10"
-         :value="(config.collected/config.quantity) * 100"
+         value="10"
       ></v-progress-linear>
    </v-card-text>
 
@@ -39,8 +53,7 @@
 
    <v-card-text class="text--primary">
       <p class="title no-bottom">Description</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id massa urna. Cras gravida, mi vel sagittis posuere,
-          neque lacus iaculis orci, id viverra elit lectus a diam. Quisque varius viverra purus, sed pulvinar felis semper tincidunt. </p>  
+      <p>{{config.description}}</p>
    </v-card-text>
 
     <v-list class="transparent">
@@ -58,31 +71,21 @@
       <v-btn text>Submit Images</v-btn>
     </v-card-actions>
   </v-card>
+    </v-dialog>
+  </div>
 </template>
 
 <script>
 export default {
-   data () {
-      return {
-         labels: ['SU', 'MO', 'TU', 'WED', 'TH', 'FR', 'SA'],
-         time: 0,
-         forecast: [
-            { day: 'Tuesday', icon: 'mdi-white-balance-sunny', temp: '24\xB0/12\xB0' },
-            { day: 'Wednesday', icon: 'mdi-white-balance-sunny', temp: '22\xB0/14\xB0' },
-            { day: 'Thursday', icon: 'mdi-cloud', temp: '25\xB0/15\xB0' },
-         ],
+   props: {
+      config: {
+         title: String,
+         points: Number,
+         collected: Number,
+         quantity: Number,
+         timeConstraint: Number,
+         description: String
       }
    }
 }
 </script>
-
-<style scoped>
-.no-bottom {
-   margin-bottom: 0px;
-}
-
-.light-buttons {
-   margin-right: 10px;
-}
-
-</style>

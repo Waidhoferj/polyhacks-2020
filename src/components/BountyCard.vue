@@ -4,7 +4,7 @@
     max-width="750"
   >
   <div class="classification" style="display:flex">
-      <p class="company subtitle-1" style="flex-grow: 1" color="primary">Images</p>
+      <p class="company subtitle-1" style="flex-grow: 1" color="primary">{{config.company}}</p>
       <p v-if="config.featured" class="featured subtitle-1">Featured</p>
       <p v-else class="subtitle-1 exp-date"><b>20 Hours Left</b></p>
   </div>
@@ -22,17 +22,6 @@
       color="primary"
     ></v-progress-linear>
     </v-card-text>
-      <!-- <v-expansion-panels class="elevation">
-    <v-expansion-panel
-    >
-      <v-expansion-panel-header>Details</v-expansion-panel-header>
-      <v-expansion-panel-content>
-         <p>{{config.description}}</p>
-         <v-btn text color="primary" style="float:right">Claim Bounty</v-btn>
-         <v-btn text color="primary" style="float:right">Learn More</v-btn>
-      </v-expansion-panel-content>
-    </v-expansion-panel>
-  </v-expansion-panels> -->
   <v-card-text style="display:flex">
      <p class="info-data title font-weight-bold" color="black">$.25/ea</p>
      <p class="info-data title font-weight-bold" color="black">2/9/20</p>
@@ -40,21 +29,28 @@
   <v-divider></v-divider>
   <v-card-text style="display:flex">
      <div style="flex-grow:1"></div>
-     <v-btn color="primary" text>More Info</v-btn>
+     <bounty-card-dialog :config="config"></bounty-card-dialog>
      <v-btn color="primary" text>Submit</v-btn>
   </v-card-text>
   </v-card>
 </template>
 
 <script>
+import BountyCardDialog from '../components/BountyCardDialog';
 export default {
+   components: {
+      BountyCardDialog
+   },
+
    props: {
       config: {
          title: String,
          points: Number,
+         company: String,
          collected: Number,
          quantity: Number,
          timeConstraint: Number,
+         usage: String,
          description: String
       }
    }
