@@ -1,5 +1,6 @@
 <template>
   <div class="camera">
+    <h1 class="title display-1">{{ bounty.title }}</h1>
     <canvas ref="sensor" class="camera-sensor"></canvas>
     <video
       ref="videoView"
@@ -13,6 +14,7 @@
       <div class="inner-circle"></div>
     </div>
     <div class="scanner" :class="{ scan: takingPic }"></div>
+    <h2 class="photo-count">{{ photoCount }}</h2>
   </div>
 </template>
 
@@ -23,9 +25,11 @@ import { auth, storage, firestore } from "@/modules/firebase";
 export default {
   data: () => ({
     bounty: {
+      title: "this is a title",
       type: "photo",
       id: "blah"
     },
+    photoCount: 0,
     takingPic: false
   }),
   methods: {
@@ -79,6 +83,23 @@ export default {
 </script>
 
 <style lang="scss">
+.title {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 30px;
+  z-index: 5;
+}
+
+.photo-count {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
 .camera,
 .camera-view,
 .camera-sensor,
