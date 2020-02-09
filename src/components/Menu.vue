@@ -1,13 +1,13 @@
 <template>
   <v-navigation-drawer :value="drawer" fixed temporary>
     <v-list-item>
-      <v-list-item-avatar>
-        <v-img src="https://randomuser.me/api/portraits/men/78.jpg"></v-img>
-      </v-list-item-avatar>
-
       <v-list-item-content>
-        <v-list-item-title>John Leider</v-list-item-title>
-        <v-list-item-subtitle>5100 points</v-list-item-subtitle>
+        <v-list-item-title>
+          Hello {{ $store.state.user.displayName }}</v-list-item-title
+        >
+        <v-list-item-subtitle v-if="points"
+          >{{ points }} points</v-list-item-subtitle
+        >
       </v-list-item-content>
     </v-list-item>
 
@@ -49,7 +49,6 @@
 </template>
 
 <script>
-import { auth } from "@/modules/firebase";
 export default {
   props: {
     drawer: Boolean
@@ -62,6 +61,11 @@ export default {
       { title: "Leaderboard", icon: "poll" }
     ]
   }),
+  computed: {
+    points() {
+      return this.$store.state.userData.points;
+    }
+  },
   methods: {
     async signOut() {
       console.log("test");
