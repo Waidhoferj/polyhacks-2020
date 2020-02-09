@@ -7,7 +7,7 @@
       required
       @change="updateSelect"
     ></v-select>
-    <v-text-field label="Image Labels" @keyup.enter="addTag"></v-text-field>
+    <!-- <v-text-field label="Image Labels" @keyup.enter="addTag"></v-text-field>
     <v-chip
       v-for="(tag, index) in tags"
       :key="tag"
@@ -18,7 +18,7 @@
       outlined
     >
       {{ tag }}
-    </v-chip>
+    </v-chip> -->
   </form>
 </template>
 
@@ -41,7 +41,7 @@ export default {
       this.$v.lighting.$touch();
       this.$emit("update", {
         lighting: this.lighting.value,
-        keywords: this.tags
+        // keywords: this.tags
       });
     },
     addTag(e) {
@@ -50,14 +50,14 @@ export default {
       e.target.value = "";
       this.$emit("update", {
         lighting: this.lighting.value,
-        keywords: this.tags
+        // keywords: this.tags
       });
     },
     deleteTag(index) {
       this.tags.splice(index, 1);
       this.$emit("update", {
         lighting: this.lighting.value,
-        keywords: this.tags
+        // keywords: this.tags
       });
     }
   },
@@ -65,7 +65,7 @@ export default {
     "$v.$error": function(isInvalid) {
       this.$emit("update", {
         lighting: this.lighting.value,
-        labels: this.tags
+        // labels: this.tags
       });
     }
   },

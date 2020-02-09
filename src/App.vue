@@ -6,7 +6,7 @@
           <v-icon>menu</v-icon>
         </v-btn>
         <router-link to="/">
-          <v-btn text>Data Quest</v-btn>
+          <v-btn text>Data.ai</v-btn>
         </router-link>
       </div>
 

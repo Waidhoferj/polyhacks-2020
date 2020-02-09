@@ -28,7 +28,6 @@ export default {
     firestore.collection("Bounties").get()
       .then(response => {
         response.docs.forEach(doc => {
-           console.log(doc.data());
            this.bounties.push({
               id: doc.id,
               config: doc.data()})
