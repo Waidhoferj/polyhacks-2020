@@ -91,7 +91,8 @@ export default {
         { text: "Photo", value: "photo" }
       ]
     },
-    categoricalData: null
+    categoricalData: null,
+    collected: 0
   }),
   computed: {
     quantityErrors() {
@@ -129,12 +130,14 @@ export default {
         .add({
           title: this.title,
           type: this.type.value,
+          points: 200,
           dateRange: this.dates,
           requestor: auth.currentUser.uid,
           description: this.description,
           payment: this.payment,
           quantity: this.quantity,
           payment: this.payment,
+          collected: this.collected,
           featured: false,
           ...this.categoricalData
         })

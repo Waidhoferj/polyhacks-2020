@@ -113,7 +113,6 @@ export default {
         this.loading = false;
         return alert(err.message);
       }
-      debugger;
       this.$router.push("home");
     }
   },

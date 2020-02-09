@@ -26,7 +26,10 @@ export default {
   mounted() {
     firestore.collection("Bounties").get()
       .then(response => {
-        response.docs.forEach(doc => this.bounties.push(doc.data()));
+        response.docs.forEach(doc => {
+           console.log(doc.data());
+           this.bounties.push(doc.data())
+           });
       })
       .catch(err => console.log(err));
   }
