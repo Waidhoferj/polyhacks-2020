@@ -128,7 +128,7 @@ export default {
         .collection("Bounties")
         .add({
           title: this.title,
-          type: this.type,
+          type: this.type.value,
           dateRange: this.dates,
           requestor: auth.currentUser.uid,
           description: this.description,

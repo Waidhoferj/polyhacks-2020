@@ -3,12 +3,15 @@
     <canvas ref="sensor" class="camera-sensor"></canvas>
     <video ref="videoView" class="camera-view" autoplay playsinline></video>
     <img src="//:0" ref="output" alt="" class="camera-output" />
-    <button @click="takePhoto" class="camera-trigger"></button>
+    <div @click="takePhoto" class="camera-trigger">
+      <div class="inner-circle"></div>
+    </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import firebase from "firebase/app";
 import { auth, storage } from "@/modules/firebase";
 
 export default {
@@ -46,9 +49,15 @@ export default {
           uploaderId: auth.currentUser.uid,
           bountyId: this.bounty.id,
           imageSrc: url,
-          keywords: ["Face"]
+          keywords: ["Face", "bottle"]
         }
       );
+      firestore
+        .collection("Users")
+        .doc(auth.currentUser.uid)
+        .update({
+          points: firebase.firestore.FieldValue.increment(200)
+        });
     }
   },
   mounted() {
@@ -75,21 +84,28 @@ export default {
   position: absolute;
   bottom: 80px;
   left: 50%;
+  width: 80px;
+  height: 80px;
   transform: translateX(-50%);
   border-radius: 50%;
   transition: opacity 0.5s, transform 0.5s;
+  cursor: pointer;
 
   &:active {
     opacity: 0.5;
     transform: translateX(-50%), scale(0.9);
   }
 
-  .iner-circle {
-    background: black;
-    width: 50px;
-    height: 50px;
+  .inner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: whitesmoke;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
-    border: 3px solid gray;
+    border: 3px solid rgb(218, 218, 218);
   }
 }
 </style>

@@ -11,10 +11,12 @@
 <script>
 import { firestore } from "../modules/firebase";
 import BountyCard from "../components/BountyCard";
+import BountyCardDialog from '../components/BountyCardDialog'
 export default {
   components: {
-    BountyCard
-  },
+      BountyCard,
+      BountyCardDialog
+   },
 
   data: () => {
     return {
