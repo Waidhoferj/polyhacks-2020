@@ -56,7 +56,8 @@ export default {
         .collection("Users")
         .doc(auth.currentUser.uid)
         .update({
-          points: firebase.firestore.FieldValue.increment(200)
+          points: firebase.firestore.FieldValue.increment(200),
+          collected: firebase.firestore.FieldValue.increment(1)
         });
     }
   },
