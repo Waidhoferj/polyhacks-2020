@@ -24,16 +24,12 @@ import firebase from "firebase/app";
 import { auth, storage, firestore } from "@/modules/firebase";
 export default {
   data: () => ({
-    bounty: {
-      type: "photo"
-    },
+    id: "",
+    title: "",
     photoCount: 0,
     takingPic: false
   }),
-  props: {
-    id: String,
-    title: String
-  },
+  props: {},
   methods: {
     async setupCamera() {
       let stream;
@@ -85,6 +81,9 @@ export default {
     }
   },
   mounted() {
+    let { id, title } = this.$route.query;
+    this.id = id;
+    this.title = title;
     this.setupCamera();
   }
 };

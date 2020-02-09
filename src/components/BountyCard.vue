@@ -21,14 +21,24 @@
       ></v-progress-linear>
     </v-card-text>
     <v-card-text style="display:flex">
-      <p class="info-data title font-weight-bold" color="black">{{config.points}} Points</p>
+      <p class="info-data title font-weight-bold" color="black">
+        {{ config.points }} Points
+      </p>
       <p class="info-data title font-weight-bold" color="black">2/9/20</p>
     </v-card-text>
     <v-divider></v-divider>
     <v-card-text style="display:flex">
       <div style="flex-grow:1"></div>
       <bounty-card-dialog :config="config"></bounty-card-dialog>
-      <v-btn color="primary" @click="$router.push('data-hunt/' + id + '/' + config.title)" text
+      <v-btn
+        color="primary"
+        @click="
+          $router.push({
+            name: 'Data Hunt',
+            query: { id: id, title: config.title }
+          })
+        "
+        text
         >Take Photos</v-btn
       >
     </v-card-text>
@@ -38,24 +48,24 @@
 <script>
 import BountyCardDialog from "../components/BountyCardDialog";
 export default {
-   components: {
-      BountyCardDialog
-   },
+  components: {
+    BountyCardDialog
+  },
 
-   props: {
-      id: String,
-      config: {
-         title: String,
-         points: Number,
-         company: String,
-         collected: Number,
-         pricePerPhoto: Number,
-         quantity: Number,
-         timeConstraint: Number,
-         usage: String,
-         description: String
-      }
-   }
+  props: {
+    id: String,
+    config: {
+      title: String,
+      points: Number,
+      company: String,
+      collected: Number,
+      pricePerPhoto: Number,
+      quantity: Number,
+      timeConstraint: Number,
+      usage: String,
+      description: String
+    }
+  }
 };
 </script>
 
