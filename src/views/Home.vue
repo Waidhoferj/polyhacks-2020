@@ -18,12 +18,12 @@ export default {
       return {
          bounties: [
             { title: 'Avila Beach', points: 200, collected: 439, company: "Cisco",
-            quantity: 500, timeContraint: 1581226441791, 
+            quantity: 500, timeConstraint: 1581226441791, 
             description: 'Take pictures of the sand at Avila Beach between the hours of 8:00 AM and 8:00 PM', featured: true },
             { title: 'Dog pictures', points: 200, collected: 32, company: "Activata",
-            quantity: 100, timeContraint: 1581226441791, description: 'Collect them all', featured: false },
+            quantity: 100, timeConstraint: 1581226441791, description: 'Collect them all', featured: false },
             { title: 'Pictures of Fire Hydrants', points: 500, collected: 69, company: "Knowmada",
-            quantity: 100, timeContraint: 1581226441791, 
+            quantity: 100, timeConstraint: 1581226441791, 
             description: 'Collect images of fire hydrants located around the downtown area', featured: false }
          ]
       }
