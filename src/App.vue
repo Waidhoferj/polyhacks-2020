@@ -1,10 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -44,17 +40,19 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
-
+import { auth } from "@/modules/firebase";
 export default {
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
+  name: "App",
 
   data: () => ({
     //
   }),
+  created() {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        this.$store.commit("setUser", user);
+      } else this.signedIn = false;
+    });
+  }
 };
 </script>
