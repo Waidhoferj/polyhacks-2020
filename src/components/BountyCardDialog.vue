@@ -86,6 +86,12 @@ export default {
          timeConstraint: Number,
          description: String
       }
+   },
+
+   data() {
+      return {
+         dialog: false
+      }
    }
 }
 </script>
