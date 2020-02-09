@@ -1,23 +1,50 @@
 <template>
   <v-content>
-    <v-date-picker v-model="dates" range></v-date-picker>
+    <h1 class="display-2">Data Request</h1>
+    <v-text-field
+      v-model="title"
+      label="Title"
+      name="Title"
+      prepend-icon="title"
+      type="text"
+      :error-messages="titleErrors"
+      @blur="$v.title.$touch()"
+    />
+    <v-textarea
+      outlined
+      name="input-7-4"
+      label="Description"
+      v-model="description"
+      :error-messages="descriptionErrors"
+      @blur="$v.description.$touch()"
+    ></v-textarea>
+    <v-subheader>Collection Duration</v-subheader>
+    <v-row>
+      <v-date-picker
+        v-model="dates"
+        range
+        :no-title="true"
+        width="290"
+        label="Collection Duration"
+      ></v-date-picker>
+    </v-row>
+
     <v-text-field
       v-model="quantity"
       label="Quantity"
       name="Quantity"
-      prepend-icon="email"
+      prepend-icon="trending_up"
       type="number"
-      :error-messages="['required']"
+      :error-messages="quantityErrors"
       @blur="$v.quantity.$touch()"
     />
     <v-text-field
       v-model="payment"
       label="Payment"
       name="payment"
-      prepend-icon="email"
+      prepend-icon="attach_money"
       type="number"
-      prefix="$"
-      :error-messages="['required']"
+      :error-messages="paymentErrors"
       @blur="$v.payment.$touch()"
     />
     <v-select
@@ -27,54 +54,105 @@
       required
       @change="$v.type.$touch()"
     ></v-select>
-
-    <form>
-      <v-checkbox
-        v-model="checkbox"
-        :error-messages="checkboxErrors"
-        label="Do you agree?"
-        required
-        @change="$v.checkbox.$touch()"
-        @blur="$v.checkbox.$touch()"
-      ></v-checkbox>
-
-      <v-btn class="mr-4" @click="submit">submit</v-btn>
-      <v-btn @click="clear">clear</v-btn>
-    </form>
+    <create-bounty-photo
+      v-if="type.value === 'photo'"
+      @update="this.categoricalData = $event"
+    ></create-bounty-photo>
+    <create-bounty-audio
+      v-else-if="type.value === 'audio'"
+      @update="this.categoricalData = $event"
+    ></create-bounty-audio>
+    <v-btn class="mr-4" @click="createBounty">submit</v-btn>
   </v-content>
 </template>
 
 <script>
-import { required, minLength, email } from "vuelidate/lib/validators";
-
+import { firestore } from "@/modules/firebase";
+import { required } from "vuelidate/lib/validators";
+import CreateBountyPhoto from "@/components/CreateBountyPhoto";
+import CreateBountyAudio from "@/components/CreateBountyAudio";
 export default {
+  components: {
+    CreateBountyPhoto,
+    CreateBountyAudio
+  },
   data: () => ({
+    title: null,
     dates: [new Date().toJSON().slice(0, 10), new Date().toJSON().slice(0, 10)],
     quantity: null,
     payment: null,
+    description: null,
     type: {
       value: null,
       choices: [
         { text: "Audio", value: "audio" },
         { text: "Photo", value: "photo" }
       ]
-    }
+    },
+    categoricalData: null
   }),
   computed: {
-    startDate() {}
+    quantityErrors() {
+      const errors = [];
+      if (!this.$v.quantity.$dirty) return errors;
+      if (!this.$v.quantity.required) errors.push("quantity is required.");
+      return errors;
+    },
+    paymentErrors() {
+      const errors = [];
+      if (!this.$v.payment.$dirty) return errors;
+      if (!this.$v.payment.required) errors.push("payment is required.");
+      return errors;
+    },
+    descriptionErrors() {
+      const errors = [];
+      if (!this.$v.description.$dirty) return errors;
+      if (!this.$v.description.required)
+        errors.push("description is required.");
+      return errors;
+    },
+    titleErrors() {
+      const errors = [];
+      if (!this.$v.title.$dirty) return errors;
+      if (!this.$v.title.required) errors.push("title is required.");
+      return errors;
+    }
   },
+  methods: {
+    createBounty() {
+      this.$v.$touch();
+      if (this.$v.$error) return;
+      firebase.collection("Bounties").add({
+        title: "title",
+        type: this.type,
+        dateRange: this.dates,
+        requestor: auth.currentUser.uid,
+        description: this.description,
+        payment: this.payment,
+        quantity: this.quantity,
+        payment: this.payment,
+        ...this.categoricalData
+      });
+    }
+  },
+
   validations: {
+    title: {
+      required
+    },
     quantity: {
       required
     },
     payment: {
       required
     },
+    description: { required },
     type: {
       value: {
         required
       }
-    }
+    },
+    categoricalData: { required }
   }
 };
 </script>

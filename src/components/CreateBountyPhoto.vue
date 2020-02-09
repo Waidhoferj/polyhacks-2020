@@ -1,68 +1,63 @@
 <template>
   <form>
     <v-select
-      v-model="backgroundNoise.value"
-      :items="backgroundNoise.choices"
-      label="Background Noise"
+      v-model="lighting.value"
+      :items="lighting.choices"
+      label="Lighting"
       required
-      @change="$v.type.$touch()"
+      @change="$v.lighting.$touch()"
     ></v-select>
-    <v-select
-      v-model="intonation.value"
-      :items="intonation.choices"
-      label="Intonation"
-      required
-      @change="$v.intonation.$touch()"
-    ></v-select>
-    <v-text-field
-      v-model="duration"
-      label="Duration"
-      name="duration"
-      prepend-icon="email"
-      type="number"
-      :error-messages="durationErrors"
-      @blur="$v.duration.$touch()"
-    />
-    <v-btn color="primary" @click="postBounty">Login</v-btn>
+    <v-text-field label="Image Labels" @keydown.enter="addTag"></v-text-field>
+    <v-list>
+      <v-list-item v-for="(tag, index) in tags" :key="tag">
+        <v-row
+          ><p>{{ tag }}</p>
+          <button @click="deleteTag(index)">delete</button></v-row
+        >
+      </v-list-item>
+    </v-list>
   </form>
 </template>
 
 <script>
-import { firestore } from "@/modules/firebase";
+import { required } from "vuelidate/lib/validators";
 export default {
   data: () => ({
-    backgroundNoise: {
+    lighting: {
       value: null,
       choices: [
-        { text: "High", value: "high" },
+        { text: "Low", value: "low" },
         { text: "Medium", value: "medium" },
-        { text: "Low", value: "low" }
+        { text: "High", value: "high" }
       ]
     },
-    intonation: {
-      value: null,
-      choices: [
-        { text: "Annoyed", value: "annoyed" },
-        { text: "Happy", value: "happy" },
-        { text: "Inquisitive", value: "inquisitive" },
-        { text: "Neutral", value: "neutral" },
-        { text: "Serious", value: "serious" }
-      ]
-    },
-    duration: ""
+    tags: []
   }),
   methods: {
-    postBounty() {
-      this.$v.$touch();
-      if (this.$v.$error) return;
-      firebase.collection("Bounties").add({
-        title: "title",
-        price: "price",
-        quantity: this.quantity
+    addTag(e) {
+      debugger;
+      if (this.tags.includes(e.target.value)) return;
+      this.tags = [...this.tags, e.target.value];
+      e.target.value = "";
+    },
+    deleteTag(index) {
+      this.tags.splice(index, 1);
+    }
+  },
+  watch: {
+    "$v.$error": function(isInvalid) {
+      this.$emit("update", {
+        lighting: this.lighting.value,
+        labels: this.tags
       });
+    }
+  },
+  validations: {
+    lighting: {
+      value: {
+        required
+      }
     }
   }
 };
 </script>
-
-<style></style>
