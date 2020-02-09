@@ -1,11 +1,20 @@
 <template>
   <div class="camera">
+    <h1 class="title display-1">{{ bounty.title }}</h1>
     <canvas ref="sensor" class="camera-sensor"></canvas>
-    <video ref="videoView" class="camera-view" autoplay playsinline></video>
+    <video
+      ref="videoView"
+      class="camera-view"
+      autoplay
+      playsinline
+      :class="{ flash: takingPic }"
+    ></video>
     <img src="//:0" ref="output" alt="" class="camera-output" />
-    <div @click="takePhoto" class="camera-trigger">
+    <div :disabled="takingPic" @click="takePhoto" class="camera-trigger">
       <div class="inner-circle"></div>
     </div>
+    <div class="scanner" :class="{ scan: takingPic }"></div>
+    <h2 class="photo-count">{{ photoCount }}</h2>
   </div>
 </template>
 
@@ -13,13 +22,15 @@
 import axios from "axios";
 import firebase from "firebase/app";
 import { auth, storage, firestore } from "@/modules/firebase";
-
 export default {
   data: () => ({
     bounty: {
+      title: "this is a title",
       type: "photo",
       id: "blah"
-    }
+    },
+    photoCount: 0,
+    takingPic: false
   }),
   methods: {
     async setupCamera() {
@@ -34,6 +45,7 @@ export default {
       this.$refs.videoView.srcObject = stream;
     },
     async takePhoto() {
+      this.takingPic = true;
       let { sensor, output, videoView } = this.$refs;
       sensor.width = videoView.videoWidth;
       sensor.height = videoView.videoHeight;
@@ -60,6 +72,7 @@ export default {
           collected: firebase.firestore.FieldValue.increment(1)
         });
       this.$store.state.userData.points += 200;
+      this.takingPic = false;
     }
   },
   mounted() {
@@ -70,6 +83,23 @@ export default {
 </script>
 
 <style lang="scss">
+.title {
+  position: fixed;
+  top: 70px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  color: white;
+  font-size: 30px;
+  z-index: 5;
+}
+
+.photo-count {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+}
+
 .camera,
 .camera-view,
 .camera-sensor,
@@ -108,6 +138,36 @@ export default {
     height: 60px;
     border-radius: 50%;
     border: 3px solid rgb(218, 218, 218);
+  }
+}
+
+.scanner {
+  position: fixed;
+  z-index: 3;
+  top: 0;
+  left: -30px;
+  width: 30px;
+  height: 100vh;
+  filter: blur(10px);
+  background: white;
+  pointer-events: none;
+  opacity: 0.6;
+
+  &.scan {
+    animation: scan 0.7s;
+  }
+}
+
+@keyframes scan {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  to {
+    opacity: 0.6;
+    transform: translatex(130vw);
   }
 }
 </style>
