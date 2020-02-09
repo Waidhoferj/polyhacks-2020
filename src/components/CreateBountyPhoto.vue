@@ -5,17 +5,20 @@
       :items="lighting.choices"
       label="Lighting"
       required
-      @change="$v.lighting.$touch()"
+      @change="updateSelect"
     ></v-select>
-    <v-text-field label="Image Labels" @keydown.enter="addTag"></v-text-field>
-    <v-list>
-      <v-list-item v-for="(tag, index) in tags" :key="tag">
-        <v-row
-          ><p>{{ tag }}</p>
-          <button @click="deleteTag(index)">delete</button></v-row
-        >
-      </v-list-item>
-    </v-list>
+    <v-text-field label="Image Labels" @keyup.enter="addTag"></v-text-field>
+    <v-chip
+      v-for="(tag, index) in tags"
+      :key="tag"
+      class="ma-2"
+      close
+      color="indigo darken-3"
+      @click:close="deleteTag(index)"
+      outlined
+    >
+      {{ tag }}
+    </v-chip>
   </form>
 </template>
 
@@ -34,14 +37,28 @@ export default {
     tags: []
   }),
   methods: {
+    updateSelect() {
+      this.$v.lighting.$touch();
+      this.$emit("update", {
+        lighting: this.lighting.value,
+        keywords: this.tags
+      });
+    },
     addTag(e) {
-      debugger;
       if (this.tags.includes(e.target.value)) return;
       this.tags = [...this.tags, e.target.value];
       e.target.value = "";
+      this.$emit("update", {
+        lighting: this.lighting.value,
+        keywords: this.tags
+      });
     },
     deleteTag(index) {
       this.tags.splice(index, 1);
+      this.$emit("update", {
+        lighting: this.lighting.value,
+        keywords: this.tags
+      });
     }
   },
   watch: {

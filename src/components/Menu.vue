@@ -56,7 +56,7 @@ export default {
   },
   data: () => ({
     items: [
-      { title: "Home", icon: "home" },
+      { title: "Home", icon: "home", link: "home" },
       { title: "Create Bounty", icon: "create", link: "create-bounty" },
       { title: "Current Bounties", icon: "today" },
       { title: "Leaderboard", icon: "poll" }

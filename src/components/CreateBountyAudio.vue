@@ -7,13 +7,6 @@
       required
       @change="$v.type.$touch()"
     ></v-select>
-    <v-select
-      v-model="intonation.value"
-      :items="intonation.choices"
-      label="Intonation"
-      required
-      @change="$v.intonation.$touch()"
-    ></v-select>
     <v-text-field
       v-model="duration"
       label="Duration"
@@ -38,16 +31,6 @@ export default {
         { text: "High", value: "high" },
         { text: "Medium", value: "medium" },
         { text: "Low", value: "low" }
-      ]
-    },
-    intonation: {
-      value: null,
-      choices: [
-        { text: "Annoyed", value: "annoyed" },
-        { text: "Happy", value: "happy" },
-        { text: "Inquisitive", value: "inquisitive" },
-        { text: "Neutral", value: "neutral" },
-        { text: "Serious", value: "serious" }
       ]
     },
     duration: ""
