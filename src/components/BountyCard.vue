@@ -1,6 +1,6 @@
 <template>
   <v-card
-    class="mx-auto"
+    class="bounty-card mx-auto"
     max-width="750"
   >
   <div class="classification">
@@ -9,14 +9,14 @@
   </div>
     <v-card-text>
       <p class="display-1 text--primary">
-        Dog Pictures
+        {{config.title}}
       </p>
-      <p>200 Points</p>
+      <p>{{config.points}} Points</p>
       <div class="text--primary">
-        32/100 Images collected
+        {{config.collected}}/{{config.quantity}} Images collected
       </div>
       <v-progress-linear
-      v-model="valueDeterminate"
+      :value="(config.collected/config.quantity) * 100"
       color="deep-purple accent-4"
     ></v-progress-linear>
     </v-card-text>
@@ -25,10 +25,7 @@
     >
       <v-expansion-panel-header>Details</v-expansion-panel-header>
       <v-expansion-panel-content>
-         <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-         </p>
+         <p>{{config.description}}</p>
          <v-btn text color="primary" style="float:right">Claim Bounty</v-btn>
       </v-expansion-panel-content>
     </v-expansion-panel>
@@ -38,15 +35,24 @@
 
 <script>
 export default {
-   data: () => {
-      return {
-         valueDeterminate: 32
+   props: {
+      config: {
+         title: String,
+         points: Number,
+         collected: Number,
+         quantity: Number,
+         timeConstraint: Number,
+         description: String
       }
    }
 }
 </script>
 
 <style scoped>
+.bounty-card {
+   margin-top: 10px;
+}
+
 .classification {
    padding: 12px 12px 12px 0px;
 }
