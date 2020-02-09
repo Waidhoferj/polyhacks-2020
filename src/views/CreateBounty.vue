@@ -68,7 +68,7 @@ export default {
       required
     },
     payment: {
-      minVal: minVal(20)
+      required
     },
     type: {
       value: {
