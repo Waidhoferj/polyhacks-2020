@@ -86,7 +86,12 @@
     </v-navigation-drawer>
   </v-sheet>
   </v-container>
+<<<<<<< HEAD
     </v-content>
+=======
+      <router-view></router-view>
+    </transition>
+>>>>>>> 60f9d6ecdabcbfa1b2902cf7866701a8475dfcd7
   </v-app>
 </template>
 
@@ -109,6 +114,11 @@ export default {
     ]
     //
   }),
+  watch: {
+    $route(to, from) {
+      //change the transition animation
+    }
+  },
   created() {
     auth.onAuthStateChanged(user => {
       if (user) {
