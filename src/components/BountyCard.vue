@@ -11,7 +11,6 @@
       <p class="display-1 text--primary">
         {{ config.title }}
       </p>
-      <p class="subtitle-1">{{ config.points }} Points</p>
       <div class="text--primary">
         {{ config.collected }}/{{ config.quantity }} Images collected
       </div>
@@ -22,6 +21,7 @@
       ></v-progress-linear>
     </v-card-text>
     <v-card-text style="display:flex">
+      <p class="info-data title font-weight-bold" color="black">{{config.points}} Points</p>
       <p class="info-data title font-weight-bold" color="black">2/9/20</p>
     </v-card-text>
     <v-divider></v-divider>
