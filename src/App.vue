@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar class="app-bar" app dark color="primary">
       <div class="d-flex align-center">
         <v-btn text icon dark @click.stop="drawer = !drawer">
           <v-icon>menu</v-icon>
@@ -16,7 +16,7 @@
     <v-content>
       <v-container>
         <v-sheet
-          height="100vh"
+          color="background"
           class="overflow-hidden"
           style="position: relative;"
         >
