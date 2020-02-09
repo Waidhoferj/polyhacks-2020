@@ -42,9 +42,14 @@ const routes = [
     component: () => import("../views/ScavengerCamera.vue")
   },
   {
-    path: "*",
+    path: "/home",
     name: "Home",
     component: Home
+  },
+  {
+    path: "*",
+    name: "Default",
+    component: Login
   }
 ];
 
