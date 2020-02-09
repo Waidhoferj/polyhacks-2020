@@ -1,7 +1,16 @@
-<template> </template>
+<template>
+<div>
+   <account-info></account-info>
+</div>
+</template>
 
 <script>
-export default {};
+import AccountInfo from '../components/AccountInfo';
+export default {
+   components: {
+      AccountInfo
+   }
+};
 </script>
 
 <style></style>
