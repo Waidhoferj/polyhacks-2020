@@ -1,9 +1,23 @@
 <template>
-  <h1>HOME</h1>
+  <div>
+     <bounty-card></bounty-card>
+  </div>
 </template>
 
 <script>
-export default {};
+import BountyCard from "../components/BountyCard";
+export default {
+
+   components: {
+      BountyCard
+   },
+
+   data: () => {
+      return {
+         
+      }
+   }
+};
 </script>
 
 <style></style>
