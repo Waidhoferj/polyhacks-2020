@@ -7,6 +7,7 @@
 
       <v-list-item-content>
         <v-list-item-title>John Leider</v-list-item-title>
+        <v-list-item-subtitle>5100 points</v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
 

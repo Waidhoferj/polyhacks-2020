@@ -3,8 +3,8 @@
     class="bounty-card mx-auto"
     max-width="750"
   >
-  <div class="classification">
-      <v-btn color="primary" text>Images</v-btn>
+  <div class="classification" style="display:flex">
+      <p class="company subtitle-1" style="flex-grow: 1" color="primary">Images</p>
       <p v-if="config.featured" class="featured subtitle-1">Featured</p>
   </div>
     <v-card-text>
@@ -16,21 +16,26 @@
         {{config.collected}}/{{config.quantity}} Images collected
       </div>
       <v-progress-linear
+      height="10"
       :value="(config.collected/config.quantity) * 100"
       color="primary"
     ></v-progress-linear>
     </v-card-text>
-      <v-expansion-panels class="elevation">
+      <!-- <v-expansion-panels class="elevation">
     <v-expansion-panel
     >
       <v-expansion-panel-header>Details</v-expansion-panel-header>
       <v-expansion-panel-content>
          <p>{{config.description}}</p>
          <v-btn text color="primary" style="float:right">Claim Bounty</v-btn>
-         <v-btn text color="primary" style="float:right">Info</v-btn>
+         <v-btn text color="primary" style="float:right">Learn More</v-btn>
       </v-expansion-panel-content>
     </v-expansion-panel>
-  </v-expansion-panels>
+  </v-expansion-panels> -->
+  <v-card-text style="display:flex">
+     <p class="info-data title font-weight-bold" color="black">$.25/ea</p>
+     <p class="info-data title font-weight-bold" color="black">2/9/20</p>
+  </v-card-text>
   </v-card>
 </template>
 
@@ -50,14 +55,24 @@ export default {
 </script>
 
 <style scoped>
+.company {
+   flex-grow: 1;
+}
 .bounty-card {
    margin-top: 10px;
    margin-bottom: 10px;
 }
 
 .classification {
-   padding: 12px 12px 12px 0px;
+   display: flex;
+   padding: 12px 12px 0px 12px;
 }
+
+.info-data {
+   color: black;
+   margin: auto;
+}
+
 .elevation {
    z-index: initial;
 }

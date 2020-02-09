@@ -1,15 +1,18 @@
 <template>
   <div>
+     <bounty-info></bounty-info>
      <bounty-card v-for="(bounty, index) in bounties" :key="index" :config="bounty"></bounty-card>
   </div>
 </template>
 
 <script>
+import BountyInfo from '../components/BountyInfo';
 import BountyCard from "../components/BountyCard";
 export default {
 
    components: {
-      BountyCard
+      BountyCard,
+      BountyInfo
    },
 
    data: () => {
