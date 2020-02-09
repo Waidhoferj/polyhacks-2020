@@ -23,12 +23,14 @@
       class="overflow-hidden"
       style="position: relative;"
     >
+      <router-view></router-view>
     <v-container class="fill-height">
       <v-row
         align="center"
         justify="center"
       >
       </v-row>
+
     </v-container>
 
     <v-navigation-drawer
@@ -84,7 +86,6 @@
     </v-navigation-drawer>
   </v-sheet>
   </v-container>
-      <router-view></router-view>
     </v-content>
   </v-app>
 </template>
