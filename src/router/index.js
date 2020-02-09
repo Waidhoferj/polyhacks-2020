@@ -6,6 +6,7 @@ import CreateBounty from '../views/CreateBounty.vue';
 import About from "../views/About.vue";
 import Leaderboard from "../views/Leaderboard.vue";
 import Login from "../views/Login.vue";
+import SignUp from "../views/SignUp.vue";
 import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
@@ -40,6 +41,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login
+  },
+  {
+    path: "/sign-up",
+    name: "Sign Up",
+    component: SignUp
   },
   {
     path: "*",
