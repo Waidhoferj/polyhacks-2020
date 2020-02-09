@@ -85,7 +85,7 @@
   </v-sheet>
   </v-container>
       <router-view></router-view>
-    </v-content>
+    </transition>
   </v-app>
 </template>
 
@@ -108,6 +108,11 @@ export default {
     ]
     //
   }),
+  watch: {
+    $route(to, from) {
+      //change the transition animation
+    }
+  },
   created() {
     auth.onAuthStateChanged(user => {
       if (user) {
@@ -118,9 +123,26 @@ export default {
 };
 </script>
 
+<<<<<<< HEAD
 <style scoped>
 .container {
   max-width: inherit;
   padding: 0px;
 }
 </style>
+=======
+<style lang="scss">
+.fade {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 1s;
+    pointer-events: 0;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+</style>
+>>>>>>> added animations
