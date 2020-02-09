@@ -1,12 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Account from '../views/Account.vue';
-import BountyInfo from '../views/BountyInfo.vue';
-import CreateBounty from '../views/CreateBounty.vue';
-import About from "../views/About.vue";
-import Leaderboard from "../views/Leaderboard.vue";
 import Login from "../views/Login.vue";
-import SignUp from "../views/SignUp.vue";
 import Home from "../views/Home.vue";
 
 Vue.use(VueRouter);
@@ -15,27 +9,27 @@ const routes = [
   {
     path: "/about",
     name: "About",
-    component: About
+    component: () => import("../views/About.vue")
   },
   {
     path: "/account",
     name: "My Account",
-    component: Account
+    component: () => import("../views/Account.vue")
   },
   {
     path: "/bounty-info",
     name: "Bounty Info",
-    component: BountyInfo
+    component: () => import("../views/BountyInfo.vue")
   },
   {
     path: "/create-bounty",
     name: "Create Bounty",
-    component: CreateBounty
+    component: () => import("../views/CreateBounty.vue")
   },
   {
     path: "/leaderboard",
     name: "Leaderboard",
-    component: Leaderboard
+    component: () => import("../views/Leaderboard.vue")
   },
   {
     path: "/login",
@@ -45,7 +39,13 @@ const routes = [
   {
     path: "/sign-up",
     name: "Sign Up",
-    component: SignUp
+    component: () => import("../views/SignUp.vue")
+  },
+  {
+    path: "/data-hunt/:bountyId",
+    props: true,
+    name: "Data Hunt",
+    component: () => import("../views/ScavengerCamera.vue")
   },
   {
     path: "*",
